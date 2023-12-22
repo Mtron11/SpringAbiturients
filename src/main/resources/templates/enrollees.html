@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Список абитуры</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        header{
+            background-color: #28a745;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        a:hover {
+            background-color: #218838; /* Немного более насыщенный зеленый цвет */
+            color: #fff;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            background-color: #f8f9fa;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header th:insert="header.html"></header>
+
+<ul th:each="enrollee : ${enrollees}">
+    <li>
+        <span th:text="${enrollee.id+1} + ' ' + ${enrollee.fullName}"></span>
+        <a th:href="@{/enrollee/{id}(id=${enrollee.getId()})}" class="btn btn-outline-dark">Подробнее</a>
+        <a th:href="@{/exam/{id}(id=${enrollee.getId()})}" class="btn btn-outline-success">Добавить экзамен</a>
+    </li>
+</ul>
+
+<a th:href="@{/add}" class="btn btn-primary">Добавить абитуриента</a>
+
+<!-- Footer -->
+<footer th:insert="footer.html"></footer>
+</body>
+</html>

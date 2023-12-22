@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Инфо Абитуры</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        header {
+            background-color: #28a745;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #218838; /* Цвет фона в шапке таблицы */
+            color: #fff; /* Цвет текста в шапке таблицы */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"] {
+            margin: 10px 0;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid #28a745; /* Зеленая рамка */
+            border-radius: 5px; /* Закругленные углы */
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            margin: 10px 0;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"].btn-primary,
+        input[type="reset"].btn-secondary {
+            background-color: #28a745; /* Зеленый цвет фона */
+            border: 2px solid #28a745; /* Зеленая рамка */
+            color: #fff; /* Белый цвет текста */
+            border-radius: 5px; /* Закругленные углы */
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            background-color: #f8f9fa;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header th:insert="header.html"></header>
+
+<form action="#" th:action="@{/add}" th:object="${enrollee}" method="post">
+    <p th:text="'ID: ' + ${enrollee.getId()+1}" />
+    <p>ФИО: <input type="text" th:field="*{fullName}" /></p>
+    <p>Дата рождения: <input type="date" th:field="*{birthday}" /></p>
+
+    <h4>Экзамены:</h4>
+    <table th:if="${exams} != null">
+        <thead>
+        <tr>
+            <th>Экзамен</th>
+            <th>Балл</th>
+            <th>Проход</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="exam : ${exams}">
+            <td th:text="${exam.subject}">Label</td>
+            <td th:text="${exam.score}">90</td>
+            <td th:text="${exam.score > 80} ? 'Да' : 'Нет'">yes</td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+
+<!-- Footer -->
+<footer th:insert="footer.html"></footer>
+</body>
+</html>
